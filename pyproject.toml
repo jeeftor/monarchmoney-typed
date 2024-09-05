@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "monarchmoney_typed"
-version = "0.1.1"
+version = "0.1.2"
 description = "A Typed wrapper around Monarch Money"
 authors = ["Jeff Stein <jeffstein@gmail.com>"]
 readme = "README.md"
