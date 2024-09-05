@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Dict, Any
 
-from monarchmoney_wrapper.models import MonarchAccount
+from monarchmoney_typed.models import MonarchAccount, MonarchCashflowSummary
 
 
 def test_parse_accounts(mock_account_data: Dict[str, Any]) -> None:
@@ -69,3 +69,61 @@ def test_parse_accounts(mock_account_data: Dict[str, Any]) -> None:
     assert account3.date_created == datetime.fromisoformat(
         "2021-10-15T01:33:46.646459+00:00"
     )
+
+
+def test_summary_structure():
+    data = {
+        "sumIncome": 10000.0,
+        "sumExpense": -5000.0,
+        "savings": 5000.0,
+        "savingsRate": 0.5,
+    }
+    summary = MonarchCashflowSummary(data)
+    assert summary.income == 10000.0
+    assert summary.expenses == -5000.0
+    assert summary.savings == 5000.0
+    assert summary.savings_rate == 0.5
+
+
+def test_summary_nested_data_structure():
+    data = {
+        "summary": [
+            {
+                "__typename": "AggregateData",
+                "summary": {
+                    "__typename": "TransactionsSummary",
+                    "sumIncome": 8000.0,
+                    "sumExpense": -3000.0,
+                    "savings": 5000.0,
+                    "savingsRate": 0.625,
+                },
+            }
+        ]
+    }
+    summary = MonarchCashflowSummary(data)
+    assert summary.income == 8000.0
+    assert summary.expenses == -3000.0
+    assert summary.savings == 5000.0
+    assert summary.savings_rate == 0.625
+
+
+def test_bad_summary():
+    data = {
+        "summary": [
+            {
+                "__typename": "AggregateData",
+                "summary": {
+                    "__typename": "TransactionsSummary",
+                    "sumIncome": "not_a_number",
+                    "sumExpense": None,
+                    "savings": "invalid",
+                    "savingsRate": "NaN",
+                },
+            }
+        ]
+    }
+    summary = MonarchCashflowSummary(data)
+    assert summary.income == -1.0
+    assert summary.expenses == -1.0
+    assert summary.savings == -1.0
+    assert summary.savings_rate == -1.0

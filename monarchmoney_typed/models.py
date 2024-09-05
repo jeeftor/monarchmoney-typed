@@ -59,7 +59,14 @@ class MonarchCashflowSummary:
 
     def __init__(self, data: dict[str, Any]):
         """Build a monarch cashflow object."""
-        self.income = data["sumIncome"]
-        self.expenses = data["sumExpense"]
-        self.savings = data["savings"]
-        self.savings_rate = data["savingsRate"]
+        if (
+            "summary" in data
+            and isinstance(data["summary"], list)
+            and len(data["summary"]) > 0
+        ):
+            data = data["summary"][0]["summary"]
+
+        self.income = data.get("sumIncome", -1.0)
+        self.expenses = data.get("sumExpense", -1.0)
+        self.savings = data.get("savings", -1.0)
+        self.savings_rate = data.get("savingsRate", -1.0)
