@@ -1,0 +1,89 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - websockets
+
+permissions: write-all
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+      id-token: write
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Upgrade pip
+        run: |
+          pip install --upgrade pip
+          pip --version
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          poetry --version
+          poetry version
+          cat pyproject.toml
+
+      - name: Check if there is a parent commit
+        id: check-parent-commit
+        run: |
+          echo "::set-output name=sha::$(git rev-parse --verify --quiet HEAD^)"
+#        run: echo "{name}=sha::$(git rev-parse --verify --quiet HEAD^)" >> $GITHUB_OUTPUT
+
+      - name: Detect and tag new version
+        id: check-version
+        if: steps.check-parent-commit.outputs.sha
+        uses: salsify/action-detect-and-tag-new-version@v2.0.3
+        with:
+          version-command: |
+            bash -o pipefail -c "poetry version -s"
+
+
+      - name: Bump version for developmental release
+        if: "! steps.check-version.outputs.tag"
+        run: |
+          poetry version patch &&
+          version=$(poetry version | awk '{ print $2 }') &&
+          poetry version $version.dev.$(date +%s)
+
+      - name: Build package
+        run: |
+          poetry build --ansi
+
+      - name: Publish package on PyPI
+        if: steps.check-version.outputs.tag
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+      - name: Publish package on TestPyPI
+        if: "! steps.check-version.outputs.tag"
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+            repository-url: https://test.pypi.org/legacy/
+            verbose: false
+
+
+      - name: Publish the release notes
+        uses: release-drafter/release-drafter@v6.0.0
+        with:
+          publish: ${{ steps.check-version.outputs.tag != '' }}
+          tag: ${{ steps.check-version.outputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

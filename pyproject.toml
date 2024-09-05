@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "monarchmoney-typed"
+version = "0.1.1"
+description = "A Typed wrapper around Monarch Money"
+authors = ["Jeff Stein <jeffstein@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+monarchmoney = "^0.1.13"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.4"
+python-dotenv = "^1.0.1"
+pre-commit = "^3.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
