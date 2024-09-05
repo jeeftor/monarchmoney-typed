@@ -1,10 +1,11 @@
 [tool.poetry]
 name = "monarchmoney_typed"
-version = "0.1.5"
+version = "0.1.6"
 description = "A Typed wrapper around Monarch Money"
 authors = ["Jeff Stein <jeffstein@gmail.com>"]
 readme = "README.md"
 include = ["monarchmoney_typed/py.typed", "LICENSE"]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.12"
