@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Dict, Any
 
-from monarchmoney_typed.models import MonarchAccount, MonarchCashflowSummary
+from typedmonarchmoney.models import MonarchAccount, MonarchCashflowSummary
 
 
 def test_parse_accounts(mock_account_data: Dict[str, Any]) -> None:

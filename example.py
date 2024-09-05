@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 import asyncio
 
-from monarchmoney_typed import TypedMonarchMoney
+from typedmonarchmoney import TypedMonarchMoney
 
 # Configure logging
 # logging.basicConfig(level=logging.DEBUG)

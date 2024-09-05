@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "MonarchMoneyTyped"
+name = "typedmonarchmoney"
 version = "0.0.1"
 description = "A Typed wrapper around Monarch Money"
 authors = ["Jeff Stein <jeffstein@gmail.com>"]
