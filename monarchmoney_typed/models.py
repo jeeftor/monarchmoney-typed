@@ -47,3 +47,19 @@ class MonarchAccount:
         self.date_created = datetime.fromisoformat(data["createdAt"])
         self.institution_url = institution.get("url", None)
         self.institution_name = institution.get("name", "Manual entry")
+
+
+class MonarchCashflowSummary:
+    """Cashflow data class."""
+
+    income: float
+    expenses: float
+    savings: float
+    savings_rate: float
+
+    def __init__(self, data: dict[str, Any]):
+        """Build a monarch cashflow object."""
+        self.income = data["sumIncome"]
+        self.expenses = data["sumExpense"]
+        self.savings = data["savings"]
+        self.savings_rate = data["savingsRate"]

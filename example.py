@@ -38,5 +38,10 @@ async def main():
     print("\n")
     print(data)
 
+    cashflow_summary = await mm.get_cashflow_summary()
+    print("-" * 80)
+    print("\n")
+    print(cashflow_summary)
+
 
 asyncio.run(main())

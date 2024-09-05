@@ -4,8 +4,9 @@ from typing import List, Optional
 
 import monarchmoney.monarchmoney
 from monarchmoney import MonarchMoney
+from monarchmoney.monarchmoney import DEFAULT_RECORD_LIMIT
 
-from .models import MonarchAccount
+from .models import MonarchAccount, MonarchCashflowSummary
 
 
 class TypedMonarchMoney(MonarchMoney):
@@ -21,3 +22,13 @@ class TypedMonarchMoney(MonarchMoney):
     async def get_accounts(self) -> List[MonarchAccount]:
         data = await super().get_accounts()
         return [MonarchAccount(acc) for acc in data["accounts"]]
+
+    async def get_cashflow_summary(
+        self,
+        limit: int = DEFAULT_RECORD_LIMIT,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+    ) -> MonarchCashflowSummary:
+        """Return cashflow summary."""
+        data = await super().get_cashflow_summary(limit, start_date, end_date)
+        return MonarchCashflowSummary(data["summary"][0]["summary"])
