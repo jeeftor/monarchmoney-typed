@@ -5,7 +5,7 @@ from typing import List, Optional
 import monarchmoney.monarchmoney
 from monarchmoney import MonarchMoney
 
-from monarchmoney_wrapper.models import MonarchAccount
+from .models import MonarchAccount
 
 
 class TypedMonarchMoney(MonarchMoney):
