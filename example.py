@@ -33,15 +33,20 @@ async def main():
         mfa_secret_key=mfa_secret,
     )
 
-    data = await mm.get_accounts()
+    data = await mm.get_subscription_details()
     print("-" * 80)
     print("\n")
     print(data)
 
-    cashflow_summary = await mm.get_cashflow_summary()
-    print("-" * 80)
-    print("\n")
-    print(cashflow_summary)
+    # data = await mm.get_accounts()
+    # print("-" * 80)
+    # print("\n")
+    # print(data)
+    #
+    # cashflow_summary = await mm.get_cashflow_summary()
+    # print("-" * 80)
+    # print("\n")
+    # print(cashflow_summary)
 
 
 asyncio.run(main())

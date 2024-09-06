@@ -74,3 +74,21 @@ class MonarchCashflowSummary:
         self.expenses = data.get("sumExpense", -1.0)
         self.savings = data.get("savings", -1.0)
         self.savings_rate = data.get("savingsRate", -1.0)
+
+
+class MonarchSubscription:
+    """Dataclass to store & parse subscription data from monarch accounts."""
+
+    id: str
+    payment_source: str
+    referral_code: str
+    is_on_free_trial: bool
+    has_premium_entitlement: bool
+
+    def __init__(self, data: dict[str, Any]):
+        """Initialize MonarchSubscription object from dict."""
+        self.id = data["id"]
+        self.payment_source = data["paymentSource"]
+        self.referral_code = data["referralCode"]
+        self.is_on_free_trial = data["isOnFreeTrial"]
+        self.has_premium_entitlement = data["hasPremiumEntitlement"]

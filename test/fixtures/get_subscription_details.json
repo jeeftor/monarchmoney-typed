@@ -1,0 +1,8 @@
+{
+  "id": "185960257876876964",
+  "paymentSource": "STRIPE",
+  "referralCode": "go3dpvrdmw",
+  "isOnFreeTrial": true,
+  "hasPremiumEntitlement": true,
+  "__typename": "HouseholdSubscription"
+}

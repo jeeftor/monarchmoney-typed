@@ -6,7 +6,7 @@ import monarchmoney.monarchmoney
 from monarchmoney import MonarchMoney
 from monarchmoney.monarchmoney import DEFAULT_RECORD_LIMIT
 
-from .models import MonarchAccount, MonarchCashflowSummary
+from .models import MonarchAccount, MonarchCashflowSummary, MonarchSubscription
 
 
 class TypedMonarchMoney(MonarchMoney):
@@ -32,3 +32,8 @@ class TypedMonarchMoney(MonarchMoney):
         """Return cashflow summary."""
         data = await super().get_cashflow_summary(limit, start_date, end_date)
         return MonarchCashflowSummary(data["summary"][0]["summary"])
+
+    async def get_subscription_details(self) -> MonarchSubscription:
+        """Return subscription details."""
+        data = await super().get_subscription_details()
+        return MonarchSubscription(data["subscription"])
