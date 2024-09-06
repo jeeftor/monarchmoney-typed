@@ -30,3 +30,12 @@ def mock_subscription_data2() -> Dict[str, Any]:
     file_path = os.path.join(current_dir, "fixtures", "get_subscription_details_2.json")
     with open(file_path, "r") as file:
         return json.load(file)
+
+
+@pytest.fixture
+def mock_holdings() -> Dict[str, Any]:
+    """Fixture to load sample accounts data from get_accounts.json."""
+    current_dir = os.path.dirname(__file__)
+    file_path = os.path.join(current_dir, "fixtures", "get_account_holdings.json")
+    with open(file_path, "r") as file:
+        return json.load(file)
