@@ -45,7 +45,11 @@ class MonarchAccount:
         self.data_provider = credential.get("dataProvider", "Manual entry")
         self.last_update = datetime.fromisoformat(data["updatedAt"])
         self.date_created = datetime.fromisoformat(data["createdAt"])
-        self.institution_url = institution.get("url", None)
+        self.institution_url = institution.get("url", "http://monarchmoney.com")
+
+        if not self.institution_url.startswith(("http://", "https://")):
+            self.institution_url = f"http://{self.institution_url}"
+
         self.institution_name = institution.get("name", "Manual entry")
 
 
