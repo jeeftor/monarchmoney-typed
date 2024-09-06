@@ -133,10 +133,20 @@ def test_bad_summary():
     assert summary.savings_rate == -1.0
 
 
-def test_subscription(mock_subscription_data) -> None:
-    details = MonarchSubscription(mock_subscription_data)
+def test_subscription1(mock_subscription_data1) -> None:
+    details = MonarchSubscription(mock_subscription_data1)
 
     assert details.id == "185960257876876964"
+    assert details.payment_source == "STRIPE"
+    assert details.referral_code == "go3dpvrdmw"
+    assert details.is_on_free_trial is True
+    assert details.has_premium_entitlement is True
+
+
+def test_subscription2(mock_subscription_data2) -> None:
+    details = MonarchSubscription(mock_subscription_data2)
+
+    assert details.id == "222260252323873333"
     assert details.payment_source == "STRIPE"
     assert details.referral_code == "go3dpvrdmw"
     assert details.is_on_free_trial is True

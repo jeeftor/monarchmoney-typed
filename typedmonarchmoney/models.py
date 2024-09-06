@@ -87,8 +87,9 @@ class MonarchSubscription:
 
     def __init__(self, data: dict[str, Any]):
         """Initialize MonarchSubscription object from dict."""
-        self.id = data["id"]
-        self.payment_source = data["paymentSource"]
-        self.referral_code = data["referralCode"]
-        self.is_on_free_trial = data["isOnFreeTrial"]
-        self.has_premium_entitlement = data["hasPremiumEntitlement"]
+        subscription = data.get("subscription", data)
+        self.id = subscription["id"]
+        self.payment_source = subscription["paymentSource"]
+        self.referral_code = subscription["referralCode"]
+        self.is_on_free_trial = subscription["isOnFreeTrial"]
+        self.has_premium_entitlement = subscription["hasPremiumEntitlement"]
