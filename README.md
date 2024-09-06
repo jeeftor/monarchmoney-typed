@@ -1,6 +1,6 @@
 # Monarch Money (Typed)
 
-This is a wrapper for the unofficial [Monarch Money Python API](https://github.com/hammem/monarchmoney). It adds Typing to "some" of the calls. I am using it for Home Assistant.
+This is a wrapper for the unofficial [Monarch Money Python API](https://github.com/hammem/monarchmoney). It adds some level of Typing to "some" of the calls. I am specifically using it for Home Assistant - and rather than fork the lib - hopefully this can just wrap it
 
 
 
