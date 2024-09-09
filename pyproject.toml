@@ -10,7 +10,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.12"
 monarchmoney = "^0.1.13"
-rich = "^13.8.0"
+rich = ">=10.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.4"
