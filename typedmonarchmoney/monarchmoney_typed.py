@@ -25,8 +25,14 @@ class TypedMonarchMoney(MonarchMoney):
         super().__init__(session_file, timeout, token)
 
     async def get_accounts(self) -> List[MonarchAccount]:
+        """Return accounts."""
         data = await super().get_accounts()
         return [MonarchAccount(acc) for acc in data["accounts"]]
+
+    async def get_accounts_as_dict_with_id_key(self) -> dict[int, MonarchAccount]:
+        """Return accounts as a dictionary where account id is the key."""
+        data = await super().get_accounts()
+        return {acc["id"]: MonarchAccount(acc) for acc in data["accounts"]}
 
     async def get_cashflow_summary(
         self,
@@ -44,9 +50,11 @@ class TypedMonarchMoney(MonarchMoney):
         return MonarchSubscription(data["subscription"])
 
     async def get_account_holdings(self, account: MonarchAccount) -> MonarchHoldings:
+        """Return account holdings for a given account."""
         data = await super().get_account_holdings(account.id)
         return MonarchHoldings(data)
 
     async def get_account_holdings_for_id(self, account_id: int) -> MonarchHoldings:
+        """Return account holdings for a given account id."""
         data = await super().get_account_holdings(account_id)
         return MonarchHoldings(data)
