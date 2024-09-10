@@ -25,7 +25,7 @@ def _parse_int(value: Any) -> int:
 class MonarchAccount:
     """Dataclass to store & parse account data from monarch accounts."""
 
-    id: int
+    id: str
     logo_url: str | None
     name: str
     balance: float
@@ -54,7 +54,7 @@ class MonarchAccount:
         institution = data.get("institution") or {}
         credential = data.get("credential") or {}
 
-        self.id = _parse_int(data["id"])
+        self.id = data["id"]
         self.logo_url = data.get("logoUrl")
         self.name = data["displayName"]
         self.balance = data["currentBalance"]
@@ -99,7 +99,7 @@ class MonarchCashflowSummary:
 class MonarchSubscription:
     """Dataclass to store & parse subscription data from monarch accounts."""
 
-    id: int
+    id: str
     payment_source: str
     referral_code: str
     is_on_free_trial: bool
@@ -108,7 +108,7 @@ class MonarchSubscription:
     def __init__(self, data: dict[str, Any]):
         """Initialize MonarchSubscription object from dict."""
         subscription = data.get("subscription", data)
-        self.id = _parse_int(subscription["id"])
+        self.id = subscription["id"]
         self.payment_source = subscription["paymentSource"]
         self.referral_code = subscription["referralCode"]
         self.is_on_free_trial = subscription["isOnFreeTrial"]
