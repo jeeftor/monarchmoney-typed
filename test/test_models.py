@@ -17,7 +17,7 @@ def test_parse_accounts(mock_account_data: Dict[str, Any]) -> None:
 
     # Test account 1
     account1 = accounts[0]
-    assert account1.id == 900000000
+    assert account1.id == "900000000"
     assert account1.logo_url == "base64Nonce"
     assert account1.name == "Brokerage"
     assert account1.balance == 1000.50
@@ -37,7 +37,7 @@ def test_parse_accounts(mock_account_data: Dict[str, Any]) -> None:
 
     # Test account 2
     account2 = accounts[1]
-    assert account2.id == 900000002
+    assert account2.id == "900000002"
     assert account2.logo_url == "data:image/png;base64,base64Nonce"
     assert account2.name == "Checking"
     assert account2.balance == 1000.02
@@ -57,7 +57,7 @@ def test_parse_accounts(mock_account_data: Dict[str, Any]) -> None:
 
     # Test account 3
     account3 = accounts[2]
-    assert account3.id == 9000000007
+    assert account3.id == "9000000007"
     assert account3.logo_url == "data:image/png;base64,base64Nonce"
     assert account3.name == "Credit Card"
     assert account3.balance == -200.0
@@ -136,7 +136,7 @@ def test_bad_summary():
 def test_subscription1(mock_subscription_data1) -> None:
     details = MonarchSubscription(mock_subscription_data1)
 
-    assert details.id == 185960257876876964
+    assert details.id == "185960257876876964"
     assert details.payment_source == "STRIPE"
     assert details.referral_code == "go3dpvrdmw"
     assert details.is_on_free_trial is True
@@ -146,7 +146,7 @@ def test_subscription1(mock_subscription_data1) -> None:
 def test_subscription2(mock_subscription_data2) -> None:
     details = MonarchSubscription(mock_subscription_data2)
 
-    assert details.id == 222260252323873333
+    assert details.id == "222260252323873333"
     assert details.payment_source == "STRIPE"
     assert details.referral_code == "go3dpvrdmw"
     assert details.is_on_free_trial is True
