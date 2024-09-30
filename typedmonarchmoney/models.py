@@ -131,6 +131,7 @@ class MonarchHolding:
     type: str
     type_name: str
     price: float
+    price_date: datetime | None
     percentage: float = -1.0
 
     def __init__(self, data: dict[str:Any]):
@@ -147,6 +148,7 @@ class MonarchHolding:
             self.type = security["type"]
             self.type_name = security["typeDisplay"]
             self.price = _parse_float(security["currentPrice"])
+            self.price_date = security["currentPriceUpdatedAt"]
         else:
             self.ticker = holding0["ticker"]
             if self.ticker == "CUR:USD":
@@ -155,6 +157,7 @@ class MonarchHolding:
             else:
                 self.type = holding0["type"]
                 self.price = _parse_float(holding0["closingPrice"])
+                self.price_date = holding0["closingPriceUpdatedAt"]
 
             self.name = holding0["name"]
             self.type_name = holding0["typeDisplay"]
@@ -206,22 +209,21 @@ class MonarchHoldings:
 
     def to_json(self) -> str:
         """Return holdings data as a JSON string."""
-        holding_count = len(self.holdings)
         holdings_list = [
             {
                 "index": idx,
-                "Ticker": holding.ticker,
-                "Quantity": holding.quantity,
-                "Total Value": holding.total_value,
-                "Type": holding.type_name,
-                "Percentage": round(holding.percentage * 100.0, 1),
-                "Name": holding.name,
+                "ticker": holding.ticker,
+                "quantity": holding.quantity,
+                "totalValue": holding.total_value,
+                "type": holding.type_name,
+                "percentage": round(holding.percentage * 100.0, 1),
+                "name": holding.name,
+                "sharePrice": holding.price,
+                "sharePriceUpdate": holding.price_date,
             }
             for idx, holding in enumerate(self.holdings)
         ]
-        return json.dumps(
-            {"holdings": holdings_list, "holdin_count": holding_count}, indent=2
-        )
+        return json.dumps({holdings_list}, indent=2)
 
     def print_table(self):
         console = Console()
