@@ -48,6 +48,7 @@ async def main():
         print(f"   {account.type} {account.subtype} {account.id}")
 
         if holdings := await mm.get_account_holdings(account):
+            holdings.to_json()
             holdings.print_table()
 
     cashflow_summary = await mm.get_cashflow_summary()
