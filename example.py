@@ -48,8 +48,8 @@ async def main():
         print(f"   {account.type} {account.subtype} {account.id}")
 
         if holdings := await mm.get_account_holdings(account):
-            print(holdings.to_json())
             holdings.print_table()
+            print(holdings.to_json())
 
     cashflow_summary = await mm.get_cashflow_summary()
     print("-" * 80)
