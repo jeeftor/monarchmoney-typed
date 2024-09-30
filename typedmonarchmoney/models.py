@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import Any
 
@@ -202,6 +203,21 @@ class MonarchHoldings:
 
     def __str__(self):
         return str([str(holding) for holding in self.holdings])
+
+    def to_json(self) -> str:
+        """Return holdings data as a JSON string."""
+        holdings_list = [
+            {
+                "Ticker": holding.ticker,
+                "Quantity": holding.quantity,
+                "Total Value": holding.total_value,
+                "Type": holding.type_name,
+                "Percentage": round(holding.percentage * 100.0, 1),
+                "Name": holding.name,
+            }
+            for holding in self.holdings
+        ]
+        return json.dumps(holdings_list, indent=2)
 
     def print_table(self):
         console = Console()
