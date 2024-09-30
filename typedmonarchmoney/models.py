@@ -211,7 +211,6 @@ class MonarchHoldings:
         """Return holdings data as a JSON string."""
         holdings_dict = {
             holding.ticker: {
-                "index": idx,
                 "quantity": holding.quantity,
                 "totalValue": holding.total_value,
                 "type": holding.type_name,
@@ -220,7 +219,7 @@ class MonarchHoldings:
                 "sharePrice": holding.price,
                 "sharePriceUpdate": holding.price_date,
             }
-            for idx, holding in enumerate(self.holdings)
+            for holding in self.holdings
         }
 
         return json.dumps(holdings_dict, indent=2)
