@@ -223,7 +223,7 @@ class MonarchHoldings:
             }
             for idx, holding in enumerate(self.holdings)
         ]
-        return json.dumps({holdings_list}, indent=2)
+        return json.dumps(holdings_list, indent=2)
 
     def print_table(self):
         console = Console()
