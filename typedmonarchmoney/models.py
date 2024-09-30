@@ -206,6 +206,7 @@ class MonarchHoldings:
 
     def to_json(self) -> str:
         """Return holdings data as a JSON string."""
+        holding_count = len(self.holdings)
         holdings_list = [
             {
                 "Ticker": holding.ticker,
@@ -217,7 +218,9 @@ class MonarchHoldings:
             }
             for holding in self.holdings
         ]
-        return json.dumps(holdings_list, indent=2)
+        return json.dumps(
+            {"holdings": holdings_list, "holdin_count": holding_count}, indent=2
+        )
 
     def print_table(self):
         console = Console()
