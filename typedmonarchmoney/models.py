@@ -209,6 +209,7 @@ class MonarchHoldings:
         holding_count = len(self.holdings)
         holdings_list = [
             {
+                "index": idx,
                 "Ticker": holding.ticker,
                 "Quantity": holding.quantity,
                 "Total Value": holding.total_value,
@@ -216,7 +217,7 @@ class MonarchHoldings:
                 "Percentage": round(holding.percentage * 100.0, 1),
                 "Name": holding.name,
             }
-            for holding in self.holdings
+            for idx, holding in enumerate(self.holdings)
         ]
         return json.dumps(
             {"holdings": holdings_list, "holdin_count": holding_count}, indent=2
