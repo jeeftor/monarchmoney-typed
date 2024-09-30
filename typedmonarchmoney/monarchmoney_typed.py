@@ -49,12 +49,17 @@ class TypedMonarchMoney(MonarchMoney):
         data = await super().get_subscription_details()
         return MonarchSubscription(data["subscription"])
 
-    async def get_account_holdings(self, account: MonarchAccount) -> MonarchHoldings:
-        """Return account holdings for a given account."""
-        data = await super().get_account_holdings(account.id)
+    async def get_account_holdings_for_id(
+        self, account_id: str | int
+    ) -> MonarchHoldings | None:
+        """Return account holdings for a given account id."""
+        data = await super().get_account_holdings(int(account_id))
+        if len(data["portfolio"]["aggregateHoldings"]["edges"]) == 0:
+            return None
         return MonarchHoldings(data)
 
-    async def get_account_holdings_for_id(self, account_id: int) -> MonarchHoldings:
-        """Return account holdings for a given account id."""
-        data = await super().get_account_holdings(account_id)
-        return MonarchHoldings(data)
+    async def get_account_holdings(
+        self, account: MonarchAccount
+    ) -> MonarchHoldings | None:
+        """Return account holdings for a given account."""
+        return await self.get_account_holdings_for_id(account.id)
