@@ -177,9 +177,10 @@ class MonarchHoldings:
         data: dict[str, Any],
         account_or_id: MonarchAccount | int | str | None = None,
     ) -> None:
-        if account_or_id is None:
-            self._account_id_str = "UNKNOWN"
-        elif isinstance(account_or_id, MonarchAccount):
+        # Default info
+        self._account_id_str = "UNKNOWN"
+
+        if isinstance(account_or_id, MonarchAccount):
             self._account = account_or_id
             self._account_id_str = str(account_or_id.id)
 
@@ -194,7 +195,10 @@ class MonarchHoldings:
 
         # Set the percentage
         for item in self.holdings:
-            item.percentage = item.total_value / self.total_value
+            try:
+                item.percentage = item.total_value / self.total_value
+            except ZeroDivisionError:
+                item.percentage = 0.0
 
     def __str__(self):
         return str([str(holding) for holding in self.holdings])

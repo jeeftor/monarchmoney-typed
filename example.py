@@ -5,7 +5,6 @@ import os
 import asyncio
 
 from typedmonarchmoney import TypedMonarchMoney
-from typedmonarchmoney.models import MonarchHoldings
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -36,29 +35,25 @@ async def main():
         mfa_secret_key=mfa_secret,
     )
 
-    data = await mm.get_subscription_details()
-    print("-" * 80)
-    print("\n")
-    print(data)
+    # data = await mm.get_subscription_details()
+    # print("-" * 80)
+    # print("\n")
+    # print(data)
 
     accounts = await mm.get_accounts()
     print("-" * 80)
-
-    # Parse and Print holdings
 
     for account in accounts:
         print(f"---[{account.name}]---")
         print(f"   {account.type} {account.subtype} {account.id}")
 
-        holdings: MonarchHoldings = await mm.get_account_holdings(account)
+        if holdings := await mm.get_account_holdings(account):
+            holdings.print_table()
 
-        holdings.print_table()
-
-    #
-    # cashflow_summary = await mm.get_cashflow_summary()
-    # print("-" * 80)
-    # print("\n")
-    # print(cashflow_summary)
+    cashflow_summary = await mm.get_cashflow_summary()
+    print("-" * 80)
+    print("\n")
+    print(cashflow_summary)
 
 
 # async def main2():
