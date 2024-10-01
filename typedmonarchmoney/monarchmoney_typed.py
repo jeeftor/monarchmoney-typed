@@ -1,5 +1,6 @@
 """Type wrapper around Monarch Money"""
 
+import asyncio
 from typing import List, Optional
 
 import monarchmoney.monarchmoney
@@ -24,10 +25,17 @@ class TypedMonarchMoney(MonarchMoney):
         """Call superclass initializer"""
         super().__init__(session_file, timeout, token)
 
-    async def get_accounts(self) -> List[MonarchAccount]:
+    async def get_accounts(self, with_holdings: bool = False) -> List[MonarchAccount]:
         """Return accounts."""
         data = await super().get_accounts()
-        return [MonarchAccount(acc) for acc in data["accounts"]]
+
+        accounts = [MonarchAccount(acc) for acc in data["accounts"]]
+        if with_holdings:
+            tasks = [self.get_account_holdings(account) for account in accounts]
+            holdings = await asyncio.gather(*tasks)
+            for account, holding in zip(accounts, holdings):
+                account.holdings = holding
+        return accounts
 
     async def get_accounts_as_dict_with_id_key(self) -> dict[str, MonarchAccount]:
         """Return accounts as a dictionary where account id is the key."""

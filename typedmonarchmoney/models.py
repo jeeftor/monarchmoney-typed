@@ -39,6 +39,7 @@ class MonarchAccount:
     institution_name: str | None
     last_update: datetime
     date_created: datetime
+    holdings: list | None = None
 
     @property
     def is_value_account(self):
@@ -72,6 +73,7 @@ class MonarchAccount:
             self.institution_url = f"http://{self.institution_url}"
 
         self.institution_name = institution.get("name", "Manual entry")
+        self.holdings: MonarchHoldings | None = None
 
 
 class MonarchCashflowSummary:

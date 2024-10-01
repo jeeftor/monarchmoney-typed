@@ -40,14 +40,14 @@ async def main():
     # print("\n")
     # print(data)
 
-    accounts = await mm.get_accounts()
+    accounts = await mm.get_accounts(with_holdings=True)
     print("-" * 80)
 
     for account in accounts:
         print(f"---[{account.name}]---")
         print(f"   {account.type} {account.subtype} {account.id}")
 
-        if holdings := await mm.get_account_holdings(account):
+        if holdings := account.holdings:
             holdings.print_table()
             print(holdings.to_json())
 
