@@ -37,10 +37,12 @@ class TypedMonarchMoney(MonarchMoney):
                 account.holdings = holding
         return accounts
 
-    async def get_accounts_as_dict_with_id_key(self) -> dict[str, MonarchAccount]:
+    async def get_accounts_as_dict_with_id_key(
+        self, with_holdings: bool = False
+    ) -> dict[str, MonarchAccount]:
         """Return accounts as a dictionary where account id is the key."""
-        data = await super().get_accounts()
-        return {acc["id"]: MonarchAccount(acc) for acc in data["accounts"]}
+        accounts = await self.get_accounts(with_holdings)
+        return {account.id: account for account in accounts}
 
     async def get_cashflow_summary(
         self,
