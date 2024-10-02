@@ -224,7 +224,7 @@ class MonarchHoldings:
             for holding in self.holdings
         }
 
-        return json.dumps(holdings_dict, indent=2)
+        return json.dumps(holdings_dict, separators=(",", ":"))
 
     def print_table(self):
         console = Console()
