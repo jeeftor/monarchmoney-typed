@@ -160,4 +160,4 @@ def test_holdings(mock_holdings) -> None:
     assert holdings.holdings[1].ticker == "GOOG"
     assert holdings.holdings[2].ticker == "CUR:USD"
 
-    print(holdings)
+    print(holdings.to_json())

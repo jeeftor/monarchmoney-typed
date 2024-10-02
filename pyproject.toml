@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "typedmonarchmoney"
-version = "0.4.2"
+version = "0.4.3"
 description = "A Typed wrapper around Monarch Money"
 authors = ["Jeff Stein <jeffstein@gmail.com>"]
 readme = "README.md"
@@ -16,6 +16,7 @@ rich = ">=10.1.0"
 ruff = "^0.6.4"
 python-dotenv = "^1.0.1"
 pre-commit = "^3.8.0"
+coverage = "^7.6.1"
 
 [build-system]
 requires = ["poetry-core"]

@@ -133,7 +133,7 @@ class MonarchHolding:
     type: str
     type_name: str
     price: float
-    price_date: datetime | None
+    price_date: datetime | None = None
     percentage: float = -1.0
 
     def __init__(self, data: dict[str:Any]):
