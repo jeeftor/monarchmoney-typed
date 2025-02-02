@@ -9,7 +9,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-monarchmoney = "^0.1.13"
+monarchmoney = "^0.1.15"
 rich = ">=10.1.0"
 
 [tool.poetry.group.dev.dependencies]
