@@ -1,14 +1,15 @@
 [project]
 name = "typedmonarchmoney"
-version = "0.6.1"
+version = "0.6.2"
 description = "A Typed wrapper around Monarch Money"
 authors = [{name = "Jeff Stein", email = "jeffstein@gmail.com"}]
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.12"
 dependencies = [
-    "monarchmoneycommunity==1.1.0",
+    "monarchmoneycommunity==1.2.0",
     "rich>=10.1.0",
+    "gql>=4.0",
 ]
 
 [dependency-groups]
