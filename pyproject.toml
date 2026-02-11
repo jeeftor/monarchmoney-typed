@@ -1,6 +1,6 @@
 [project]
 name = "typedmonarchmoney"
-version = "0.6.2"
+version = "0.7.0"
 description = "A Typed wrapper around Monarch Money"
 authors = [{name = "Jeff Stein", email = "jeffstein@gmail.com"}]
 readme = "README.md"
